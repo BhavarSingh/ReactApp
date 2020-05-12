@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import {HashRouter as Router,Route, Switch} from 'react-router-dom';
+
+import Contacts from './Contacts';
+import Header from './Header';
+
+import About from './About';
+import AddContact from './AddContact';
+
+import EditContacts from './EditContacts';
+import {Provider} from './context';
+import NotFound from './NotFound';
+import Test from './Test';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends Component {
+  render() {
+    return (
+      <Provider>
+        <Router >
+        
+        <div>
+        <Header branding='Contact Manager '/>
+        
+        <div className="container">
+            <Switch>
+                <Route exact path="/" component={Contacts}/>
+                <Route exact path="/contact/add" component={AddContact}/>
+                
+                <Route exact path="/contact/edit/:id" component={EditContacts}/>
 
-export default App;
+                <Route exact path="/about" component={About}/>
+                <Route exact path="/test" component={Test} />
+                <Route exact component={NotFound}/>
+            </Switch>
+        </div>
+ 
+      </div>
+      
+      </Router>
+   
+      </Provider>
+    )
+  }
+}
